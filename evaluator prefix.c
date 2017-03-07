@@ -34,12 +34,17 @@ int pr(char ch)
 		case '/':
 			return 3;
 			
-		case '(':
+		case ')':
 			return 0;
 			
 			
 	}
 }
+
+
+
+
+
 
 
 int main()
@@ -49,14 +54,15 @@ int main()
 	char ch;
 	int i=0,c;
 	
-	printf("        POSTFIX   EVALUATOR     \n\n\n\n");
+	printf("        PREFIX   EVALUATOR     \n\n\n\n");
 	printf("Enter the expression: \n");
 	scanf("%s",infix);                                      //we can convert string to integer with either "atoi(n)"  or  x-'0'.
+	strrev(infix);
 	
 	
 	while((ch=infix[i++])!='\0')
 	{
-		if(ch=='(')
+		if(ch==')')
 			pushopr(ch);
 			
 		else if(isdigit(ch))
@@ -64,34 +70,34 @@ int main()
 			pusheval(ch-'0');
 		}
 			
-		else if(ch==')')
+		else if(ch=='(')
 		{
-			while(oprstack[top1]!='(')
+			while(oprstack[top1]!=')')
 			{
-				k = popopr();  
+				k = popopr();    
 				
 				if(k=='+')
 				{
-					c=evalstack[top2-1] + evalstack[top2];
+					c=evalstack[top2] + evalstack[top2-1];
 					top2--;
 					printf("%d",c);
 					evalstack[top2]=c;
 				}
 				else if(k=='-')
 				{
-					c=evalstack[top2-1] - evalstack[top2];
+					c=evalstack[top2] - evalstack[top2-1];
 					top2--;
 					evalstack[top2]=c;
 				}
 				else if(k=='*')
 				{
-					c=evalstack[top2-1] * evalstack[top2];
+					c=evalstack[top2] * evalstack[top2-1];
 					top2--;
 					evalstack[top2]=c;
 				}
 				else if(k=='/')
 				{
-					c=evalstack[top2-1] / evalstack[top2];
+					c=evalstack[top2] / evalstack[top2-1];
 					top2--;
 					evalstack[top2]=c;
 				}
@@ -108,32 +114,32 @@ int main()
 	
 			else
 			{
-				if(pr(oprstack[top1])>=pr(ch))
+				if(pr(oprstack[top1])>pr(ch))
 				{
 					k=popopr();
 				
 					if(k=='+')
 					{
-						c=evalstack[top2-1] + evalstack[top2];
+						c=evalstack[top2] + evalstack[top2-1];
 						top2--;
 						printf("\n inside block c is : %d\n",c);
 						evalstack[top2]=c;
 					}
 					else if(k=='-')
 					{
-						c=evalstack[top2-1] - evalstack[top2];
+						c=evalstack[top2] - evalstack[top2-1];
 						top2--;
 						evalstack[top2]=c;
 					}
 					else if(k=='*')
 					{
-						c=evalstack[top2-1] * evalstack[top2];
+						c=evalstack[top2] * evalstack[top2-1];
 						top2--;
 						evalstack[top2]=c;
 					}
 					else if(k=='/')
 					{
-						c=evalstack[top2-1] / evalstack[top2];
+						c=evalstack[top2] / evalstack[top2-1];
 						top2--;
 						evalstack[top2]=c;
 					}
@@ -153,33 +159,33 @@ int main()
 			k=popopr();
 			if(k=='+')
 			{
-				c=evalstack[top2-1] + evalstack[top2];
+				c=evalstack[top2] + evalstack[top2-1];
 				top2--;
 				printf("\n inside block c is : %d\n",c);
 				evalstack[top2]=c;
 			}
 			else if(k=='-')
 			{
-				c=evalstack[top2-1] - evalstack[top2];
+				c=evalstack[top2] - evalstack[top2-1];
 				top2--;
 				evalstack[top2]=c;
 			}
 			else if(k=='*')
 			{
-				c=evalstack[top2-1] * evalstack[top2];
+				c=evalstack[top2] * evalstack[top2-1];
 				top2--;
 				evalstack[top2]=c;
 			}
 			else if(k=='/')
 			{
-				c=evalstack[top2-1] / evalstack[top2];
+				c=evalstack[top2] / evalstack[top2-1];
 				top2--;
 				evalstack[top2]=c;
 			}
 			
 		}
-			
 	}
+	
 	printf("\nOutput is : %d",evalstack[top2]);
 	
 	
