@@ -42,7 +42,8 @@ int main()
 		{
 			printf("\nQueue limit has bee exceeded\n");
 			temp = rear+n-20;
-			printf("\n2 members are extra. So, these many members want to wait?(Y) or you all want to wait?(N)\n");
+			printf("\n%d members are extra. So, these many members want to wait?(Y) or you all want to wait?(N)\n",temp);
+			fflush(stdin);
 			scanf("%c",&res);
 			//res = getch();
 			if(res=='y' || res=='Y')
@@ -61,6 +62,7 @@ int main()
 					enqueue(age);
 				}
 				//left extra members are inserted inside supporting queue...
+				printf("\nEnter the age of waiting persons...\n\n");
 				for(i=0;i<temp;i++)
 				{
 					printf("\nEnter the age: ");
@@ -96,8 +98,8 @@ int main()
 			printf("\nNumber of young entered is %d and number of adults entered is %d\n",young,adult);
 			rear=-1;
 			front=-1;
-			young=0;
-			adult=0;
+			young=youngs;
+			adult=adults;
 		}
 		printf("Do you want to continue?(Y or N)\n");
 		res2= getch();
