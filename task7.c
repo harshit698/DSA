@@ -1,9 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
-#define MAX 20
+#define MAX 8
 
-int queue[MAX],front=-1,rear=-1;
+int queue[MAX],front=-1,rear=-1,flag=1;
 
 int isfull()
 {
@@ -23,43 +23,63 @@ int isempty()
 
 void enqueue()
 {
-	if(isfull())
+	if(flag==1)
 	{
-		printf("\nQueue is full\n");
+		printf("\nWriting process starts...\n");
+		if(isfull())
+		{
+			printf("\nQueue is full\n");
+			return;
+		}
+		int data;
+		printf("\nEnter the data: ");
+		scanf("%d",&data);
+	
+		if(rear==-1)
+		{
+			front=0;
+			rear=0;
+		}
+		queue[rear]=data;
+		rear=(rear+1)%MAX;
+	}
+	else
+	{
+		printf("\nBurning process is going on.. First stop burning\n");
 		return;
 	}
-	int data;
-	printf("\nEnter the data: ");
-	scanf("%d",&data);
-	
-	if(rear==-1)
-	{
-		front=0;
-		rear=0;
-	}
-	queue[rear]=data;
-	rear=(rear+1)%MAX;
 }
 
 void dequeue()
 {
-	if(isempty())
-		printf("\nQueue is empty\n");
-	else
+	if(flag==2)
 	{
-		printf("\n Deleted element is %d",queue[front]);
-		front=(front+1)%MAX;
-		if(front==rear)
+		printf("\nBurning process starts..\n");
+		if(isempty())
+			printf("\nQueue is empty\n");
+		else
 		{
-			front=-1;
-			rear=-1;
+			printf("\n Deleted element is %d",queue[front]);
+			front=(front+1)%MAX;
+			if(front==rear)
+			{
+				front=-1;
+				rear=-1;
+			}
 		}
 	}
+	else
+	{
+		printf("\nWriting process is going on.. First stop writing to burn\n\n");
+		return;
+	}
+
 }
 
 void display()
 {
 	int i;
+	
 	if(isempty())
 		printf("\nQueue is empty\n");
 	else if(front<rear)
@@ -76,6 +96,8 @@ void display()
 		for(i=front;i<MAX;i++)
 			printf("%d",queue[i]);
 	}
+	
+
 }
 
 int main()
@@ -87,6 +109,12 @@ int main()
 		printf("\n1.Insert data\n");
 		printf("2.Burn data\n");
 		printf("3.Display\n");
+		printf("4.Stop Writing\n");
+		printf("5.Stop Burning\n");
+		printf("6.Show last data\n");
+		printf("7.Show first data which is going to burn\n");
+		printf("8.Show Position of last data\n");
+		printf("9.Show Position of first data which is going to burn\n");
 		printf("\nEnter your choice: ");
 		scanf("%d",&ch);
 		
@@ -102,11 +130,54 @@ int main()
 				display();
 				break;
 			case 4:
-				exit(0);
+			{
+				flag=2;
+				printf("\nWriting process stopped..\n");
+				break;
+			}
+			case 5:
+			{
+				flag=1;
+				printf("\nBurning process stopped..\n");
+				break;
+			}
+			case 6:
+			{
+				if(isempty())
+				{
+					printf("\nToo less Data..\n");
+					break;
+				}
+				printf("\nIt is : %d\n",queue[rear-1]);
+				break;	
+			}
+			case 7:
+			{
+				if(isempty())
+				{
+					printf("\nToo less Data..\n");
+					break;
+				}
+				printf("\nIt is : %d\n",queue[front]);
+				break;
+			}
+			case 8:
+				printf("%d\n",rear-1);
+				break;
+			case 9:
+				printf("%d\n",front);
+				break;
+		}
+		if(rear==MAX-1)
+		{
+			printf("\nDisc is full, you can't enter more data");
+			printf("\nDisc burning starts\n\n Disc BURNED.");
+			rear=-1;
+			front=-1;
 		}
 
 	}
-	while(ch!=5);
+	while(ch!=10);
 }
 
 
