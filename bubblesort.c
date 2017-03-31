@@ -1,13 +1,11 @@
 #include<stdio.h>
 #include<conio.h>
 
-int arr[50];
-
-void buublesort(int* , int  );
+int arr[20];
 
 int main()
 {
-	int ch, i , j , n;
+	int ch, i , j , n,temp;
 	char k;
 	printf("  BUBBLE SORT IMPLEMENTATION!!\n\n\n\n");
 	
@@ -24,7 +22,19 @@ int main()
 		
 		//Now we have array , we have to sort it now.
 		
-		bubblesort(arr , n);
+		//	bubblesort(arr , n);
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<n-1;j++)
+			{
+				if(arr[j]>arr[j+1])
+				{
+					temp=arr[j];
+					arr[j]=arr[j+1];
+					arr[j+1]=temp;
+				}
+			}
+		}
 		
 		//Now the array is sorted, we have to show the output.
 		printf("\nElements in sorted order are : \n");
@@ -37,26 +47,9 @@ int main()
 		
 	}
 	while((k=='y' || k=='Y'));
+	return 0;
 	
 	
 }
 
-void bubblesort(int *arr , int n)
-{
-	//we have unsorted array with us and we are going to use buuble sort algorithm.
-	int j,i,temp;
-	
-	for(i=1;i<n;i++)
-	{
-		for(j=0;j<i;j++)
-		{
-			if(arr[j]>arr[j+1])
-			{
-				temp = arr[j];
-				arr[j] = arr[j+1];
-				arr[j+1] = temp;
-			}
-		}
-	}
-	
-}
+
