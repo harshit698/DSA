@@ -1,2 +1,2 @@
 # DSA
-Tasks given in ITE1004
+Tasks given in Data Structures And Algorithms (ITE1004)
